@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>Lamp</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="bootstrap.min.css">
+	<style type="text/css">
+		body { background: #173463 !important; }
+	</style>
+	<script type="text/javascript">
+		function toggleOn() {
+			fetch('/lights/lamp/on')
+		};
+		function toggleOff() {
+			fetch('/lights/lamp/off')
+		};
+	</script>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row h-50">
+				<div class="mx-auto my-auto">
+
+			<button type="button" class="btn btn-warning btn-lg btn-block" onClick="toggleOn()">On</button>
+				</div>
+			</div>
+			<div class="row h-50">
+				<div class="mx-auto my-auto">
+			<button type="button" class="btn btn-danger btn-lg btn-block" onClick="toggleOff()">Off</button>
+				</div>
+			</div></div>
+	</body>
+</html>

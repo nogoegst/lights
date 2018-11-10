@@ -1,0 +1,19 @@
+version: '2'
+
+tasks:
+  generate:
+    dir: frontend
+    cmds:
+      - statik -f
+  build:
+    dir: cmd/lights
+    cmds:
+      - go build -o lights
+    env:
+      GOARCH: arm
+      GOOS: linux
+      CGO_ENABLED: 0
+  docker:
+     dir: cmd/lights
+     cmds:
+       - docker build -t lights .
