@@ -18,6 +18,9 @@ func main() {
 	lamp := lights.NewLight("lamp", rpi.P1_33)
 	router.Add(lamp)
 
+	cuties := lights.NewLight("cuties", rpi.P1_35)
+	router.Add(cuties)
+
 	http.Handle("/lights/", http.StripPrefix("/lights", router))
 
 	frontend, err := frontend.New()
