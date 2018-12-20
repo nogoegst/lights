@@ -13,7 +13,11 @@ tasks:
       GOARCH: arm
       GOOS: linux
       CGO_ENABLED: 0
-  docker:
-     dir: cmd/lights
-     cmds:
-       - docker build -t lights .
+  docker-build:
+    dir: cmd/lights
+    cmds:
+      - docker build -t lights .
+  deploy:
+    dir: cmd/lights
+    cmds:
+      - docker stack deploy -c docker-compose.yaml lights
