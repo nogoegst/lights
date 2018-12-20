@@ -1,6 +1,7 @@
 package lights
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/bmizerany/pat"
@@ -12,10 +13,12 @@ type Router struct {
 }
 
 func NewRouter() *Router {
-	return &Router{
+	r := &Router{
 		lights: make(map[string]*Light),
 		m:      pat.New(),
 	}
+	r.m.Get("/", http.HandlerFunc(r.listLightsHandler))
+	return r
 }
 
 func (r *Router) Add(l *Light) {
@@ -23,12 +26,12 @@ func (r *Router) Add(l *Light) {
 	r.m.Get("/"+l.Name()+"/:action", l)
 }
 
-func (r *Router) List() []*Light {
-	var ret []*Light
+func (r *Router) listLightsHandler(w http.ResponseWriter, req *http.Request) {
+	var ret []string
 	for _, light := range r.lights {
-		ret = append(ret, light)
+		ret = append(ret, light.Name())
 	}
-	return ret
+	json.NewEncoder(w).Encode(ret)
 }
 
 func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
