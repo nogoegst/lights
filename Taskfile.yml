@@ -18,6 +18,9 @@ tasks:
     cmds:
       - docker build -t lights .
   deploy:
-    dir: cmd/lights
     cmds:
-      - docker stack deploy -c docker-compose.yaml lights
+      - docker run -p 80:80 -d --mount type=bind,source=/sys/,destination=/sys/ --restart=always --name=lights lights
+  undeploy:
+    cmds:
+      - docker stop lights
+      - docker rm lights
